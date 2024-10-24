@@ -4,8 +4,7 @@
 	"description": "Backend for my Chat application built on React",
 	"main": "src/server.js",
 	"scripts": {
-		"build": "tsc && netlify-lambda build functions",
-
+		"build": "tsc --project ./",
 		"dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
 		"prod": "npm run build && node ./dist/server.js"
 	},
