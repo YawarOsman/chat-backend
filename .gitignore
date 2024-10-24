@@ -2,3 +2,5 @@
 /dist
 config.env
 .vscode
+# Local Netlify folder
+.netlify
