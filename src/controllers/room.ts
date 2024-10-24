@@ -19,7 +19,7 @@ const onGetRooms = async (req: any, res: any) => {
 			status: 'success',
 			data: { rooms }
 		});
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({
 			success: false,
@@ -36,7 +36,7 @@ const onCreateRoom = async (req: any, res: any) => {
 			status: 'success',
 			data: { room: newRoom }
 		});
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({
 			success: false,
@@ -62,7 +62,7 @@ const onJoinRoom = async (req: any, res: any) => {
 		} else {
 			throw ERROR_MESSAGES.ROOM_NOT_FOUND;
 		}
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({
 			success: false,
@@ -107,7 +107,7 @@ const onLeaveRoom = async (req: any, res: any) => {
 		} else {
 			throw ERROR_MESSAGES.ROOM_NOT_FOUND;
 		}
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({
 			success: false,

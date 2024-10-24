@@ -8,7 +8,7 @@ const onGetMessages = async (req: any, res: any) => {
 			status: 'success',
 			data: { messages }
 		});
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({
 			success: false,

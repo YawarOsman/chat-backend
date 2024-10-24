@@ -58,69 +58,69 @@ const userSchema = new Schema<UserDocument>(
 	{ timestamps: true }
 );
 
-userSchema.methods.getFullName = function(this: UserDocument) {
+userSchema.methods.getFullName = function (this: UserDocument) {
 	return this.firstName + ' ' + this.lastName;
 };
 
-userSchema.statics.createUser = async function(this: Model<UserDocument>, userDetails: User) {
+userSchema.statics.createUser = async function (this: Model<UserDocument>, userDetails: User) {
 	try {
 		const hash = await bcrypt.hash(userDetails.password, 10);
 		userDetails.password = hash;
 		return await this.create(userDetails);
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.checkAvailability = async function(this: Model<UserDocument>, value: string, type: string) {
+userSchema.statics.checkAvailability = async function (this: Model<UserDocument>, value: string, type: string) {
 	try {
 		const existingUser =
 			type === 'email' ? await this.findOne({ email: value }) : await this.findOne({ username: value });
 		return existingUser ? false : true;
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.changeLoginStatus = async function(this: Model<UserDocument>, id: string, newValue: boolean) {
+userSchema.statics.changeLoginStatus = async function (this: Model<UserDocument>, id: string, newValue: boolean) {
 	try {
 		const user = await this.findByIdAndUpdate(id, { isOnline: newValue });
 		if (!user) throw { error: ERROR_MESSAGES.USER_NOT_FOUND };
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.getUserById = async function(this: Model<UserDocument>, id: string) {
+userSchema.statics.getUserById = async function (this: Model<UserDocument>, id: string) {
 	try {
 		const user = await this.findOne({ _id: id }, { firstName: 1, lastName: 1, username: 1, email: 1 });
 		if (!user) throw { error: ERROR_MESSAGES.USER_NOT_FOUND };
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.getUserByUsername = async function(this: Model<UserDocument>, username: string) {
+userSchema.statics.getUserByUsername = async function (this: Model<UserDocument>, username: string) {
 	try {
 		const user = await this.findOne({ username }, { firstName: 1, lastName: 1, username: 1, email: 1 });
 		if (!user) throw { error: ERROR_MESSAGES.USER_NOT_FOUND };
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.getUsers = async function(this: Model<UserDocument>) {
+userSchema.statics.getUsers = async function (this: Model<UserDocument>) {
 	try {
 		return await this.find();
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.findByLogin = async function(this: Model<UserDocument>, login: string) {
+userSchema.statics.findByLogin = async function (this: Model<UserDocument>, login: string) {
 	try {
 		// todo merge query
 		let user = await this.findOne({
@@ -130,16 +130,16 @@ userSchema.statics.findByLogin = async function(this: Model<UserDocument>, login
 			user = await this.findOne({ email: login });
 		}
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
 
-userSchema.statics.deleteUserById = async function(this: Model<UserDocument>, id: string) {
+userSchema.statics.deleteUserById = async function (this: Model<UserDocument>, id: string) {
 	try {
 		// todo try findbyidanddelete
 		return await this.findOneAndDelete({ _id: id });
-	} catch (error) {
+	} catch (error: any) {
 		throw error;
 	}
 };
