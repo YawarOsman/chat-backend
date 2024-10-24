@@ -18,7 +18,7 @@ export const encode = async (req: any, res: any, next: any) => {
 				console.log('Auth', authToken);
 				req.authToken = authToken;
 				req.username = user.username;
-				await User.changeLoginStatus(user._id, true);
+				await User.changeLoginStatus(user._id as string, true);
 				next();
 			} else {
 				return res.status(401).json({ success: false, message: ERROR_MESSAGES.UNAUTHORIZED });
@@ -26,7 +26,7 @@ export const encode = async (req: any, res: any, next: any) => {
 		} else {
 			throw new Error(ERROR_MESSAGES.USER_NOT_FOUND);
 		}
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(400).json({ success: false, message: error.message });
 	}
@@ -41,7 +41,7 @@ export const decode = (req: any, res: any, next: any) => {
 		const decoded: any = jwt.verify(accessToken, process.env.SECRET_KEY!);
 		req.userId = decoded.userId;
 		return next();
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		return res.status(401).json({ success: false, message: error.message });
 	}

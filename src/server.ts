@@ -88,7 +88,7 @@ connectDb().then(async () => {
 			const user = disconnect(socket.id);
 			if (user) {
 				const userDetails = await User.findByLogin(user.username);
-				if (countUserSockets(user.username) === 0) User.changeLoginStatus(userDetails._id, false);
+				if (countUserSockets(user.username) === 0) User.changeLoginStatus(userDetails._id as string, false);
 			}
 		});
 	});

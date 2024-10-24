@@ -76,7 +76,6 @@ roomSchema.statics.createRoom = async function(
 			select: 'firstName lastName username email',
 			model: 'User'
 		})
-		.execPopulate();
 };
 
 roomSchema.statics.joinRoom = async function(
@@ -93,7 +92,7 @@ roomSchema.statics.joinRoom = async function(
 			select: 'firstName lastName username email',
 			model: 'User'
 		})
-		.execPopulate();
+
 };
 
 roomSchema.statics.updatePreview = async function(this: Model<RoomDocument>, roomCode: string, message: string) {

@@ -5,7 +5,7 @@ export default {
 		try {
 			const users = await User.getUsers();
 			return res.status(200).json({ success: true, users });
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
@@ -14,7 +14,7 @@ export default {
 		try {
 			const user = await User.getUserById(req.params.id);
 			return res.status(200).json({ success: true, user });
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
@@ -24,7 +24,7 @@ export default {
 			let { value, type } = req.body;
 			const isAvailable = await User.checkAvailability(value, type);
 			return res.status(201).json({ success: true, isAvailable });
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
@@ -34,7 +34,7 @@ export default {
 			let { newValue } = req.body;
 			const updatedUser = await User.changeLoginStatus(req.userId, newValue);
 			return res.status(200).json({ success: true, user: updatedUser });
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
@@ -43,7 +43,7 @@ export default {
 		try {
 			await User.createUser(req.body);
 			return res.status(201).json({ success: true });
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
@@ -55,7 +55,7 @@ export default {
 				success: true,
 				message: `Deleted user: ${user.username}.`
 			});
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return res.status(400).json({ success: false, error: error.message });
 		}
